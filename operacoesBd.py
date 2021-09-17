@@ -29,3 +29,8 @@ def pesquisaVeiculo(id):
     for row in rows:
         listaVeiculo.append(row)
     return listaVeiculo
+
+def excluiVeiculo(id):
+    conn = sqlite3.connect("abastece.db")
+    conn.execute("delete from Veiculo where idVeiculo = ?", (id,))
+    conn.commit()
