@@ -11,7 +11,7 @@ def excluiBd():
         print("Erro: %s Banco de Dados não encontrado: " % bd)
 
 # Criando BD 
-def criarTabelasBD():
+def criaTabelasBD():
     conn = sqlite3.connect("abastece.db")
     cursor = conn.cursor()
     
