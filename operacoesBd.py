@@ -88,5 +88,44 @@ def alteraAbastecimento(data, combustivel, valorLitro, quantLitro, vtotal, kmAba
     except Exception as erro:
         print("Erro: ",erro)
 
+def pesquisaTodosAbastecimentosPorVeiculo(placa):
+    try:
+        listaAbastecimento = []
+        veiculo = pesquisaVeiculoPlaca(placa)
+        id = veiculo[0][0]
+        conn = sqlite3.connect("abastece.db")
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Abastecimento where vcl_idVeiculo = ?",(id,))
+        rows = cur.fetchall()
+        for row in rows:
+            listaAbastecimento.append(row)
+        return listaAbastecimento
+    except Exception as erro:
+        print("Erro: ",erro)
+
+def pesquisaTodosAbastecimentosEntreDatas(d1, d2):
+    try:
+        listaAbastecimento = []
+        conn = sqlite3.connect("abastece.db")
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Abastecimento where data BETWEEN ? and ?",(d1, d2,))
+        rows = cur.fetchall()
+        for row in rows:
+            listaAbastecimento.append(row)
+        return listaAbastecimento
+    except Exception as erro:
+        print("Erro: ",erro)
+
+def pesquisaTodosAbastecimentosPorVeiculoEData():
+    ...
+
+def excluiAbastecimento(id):
+    try:
+        conn = sqlite3.connect("abastece.db")
+        conn.execute("delete from Abastecimento where idAbastecimento = ?",(id,))
+        conn.commit()
+        print("Registro apagado com sucesso")
+    except Exception as erro:
+        print("Erro: ",erro)
 
 
