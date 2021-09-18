@@ -4,49 +4,89 @@ import sqlite3
 # OPERAÇÕES NA TABELA DE VEÍCULOS
 
 def insereVeiculo(placa, modelo):
-    conn = sqlite3.connect("abastece.db")
-    conn.execute("insert into Veiculo (placa, modelo) values (?, ?)", (placa, modelo ))
-    conn.commit()
+    try:
+        conn = sqlite3.connect("abastece.db")
+        conn.execute("insert into Veiculo (placa, modelo) values (?, ?)", (placa, modelo ))
+        conn.commit()
+    except Exception as erro:
+        print("Erro: ",erro)
 
 def alteraVeiculo(id, placa, modelo):
-    conn = sqlite3.connect("abastece.db")
-    conn.execute("update Veiculo SET placa = ?, modelo = ? where idVeiculo = ?", (placa, modelo, id))
-    conn.commit()
+    try:
+        conn = sqlite3.connect("abastece.db")
+        conn.execute("update Veiculo SET placa = ?, modelo = ? where idVeiculo = ?", (placa, modelo, id))
+        conn.commit()
+        print("Registro atualizado com sucesso")
+    except Exception as erro:
+        print("Erro: ",erro)
 
 def pesquisaTodosVeiculos():
-    listaVeiculo = []
-    conn = sqlite3.connect("abastece.db")
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM Veiculo")
-    rows = cur.fetchall()
-    for row in rows:
-        listaVeiculo.append(row)
-    return listaVeiculo
+    try:
+        listaVeiculo = []
+        conn = sqlite3.connect("abastece.db")
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Veiculo")
+        rows = cur.fetchall()
+        for row in rows:
+            listaVeiculo.append(row)
+        return listaVeiculo
+    except Exception as erro:
+        print("Erro: ",erro)
 
 def pesquisaVeiculoId(id):
-    listaVeiculo = []
-    conn = sqlite3.connect("abastece.db")
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM Veiculo where idVeiculo = ?",(id,))
-    rows = cur.fetchall()
-    for row in rows:
-        listaVeiculo.append(row)
-    return listaVeiculo
+    try:
+        listaVeiculo = []
+        conn = sqlite3.connect("abastece.db")
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Veiculo where idVeiculo = ?",(id,))
+        rows = cur.fetchall()
+        for row in rows:
+            listaVeiculo.append(row)
+        return listaVeiculo
+    except Exception as erro:
+        print("Erro: ",erro)
 
 def pesquisaVeiculoPlaca(placa):
-    listaVeiculo = []
-    conn = sqlite3.connect("abastece.db")
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM Veiculo where placa = ?",(placa,))
-    rows = cur.fetchall()
-    for row in rows:
-        listaVeiculo.append(row)
-    return listaVeiculo
+    try:
+        listaVeiculo = []
+        conn = sqlite3.connect("abastece.db")
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Veiculo where placa = ?",(placa,))
+        rows = cur.fetchall()
+        for row in rows:
+            listaVeiculo.append(row)
+        return listaVeiculo
+    except Exception as erro:
+        print("Erro: ",erro)
 
 def excluiVeiculo(id):
-    conn = sqlite3.connect("abastece.db")
-    conn.execute("delete from Veiculo where idVeiculo = ?", (id,))
-    conn.commit()
+    try:
+        conn = sqlite3.connect("abastece.db")
+        conn.execute("delete from Veiculo where idVeiculo = ?", (id,))
+        conn.commit()
+        print("Registro apagado com sucesso")
+    except Exception as erro:
+        print("Erro: ",erro)
 
 # OPERAÇÕES NA TABELA DE ABASTECIMENTOS
+
+def insereAbastecimento(data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo):
+    try:
+        conn = sqlite3.connect("abastece.db")
+        conn.execute("insert into Abastecimento (data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo) values (?, ?, ?, ?, ?, ?, ?)", (data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo ))
+        conn.commit()
+        print("Registro inserido com sucesso")
+    except Exception as erro:
+        print("Erro: ",erro)
+
+def alteraAbastecimento(data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo, idAbastecimento):
+    try:
+        conn = sqlite3.connect("abastece.db")
+        conn.execute("update Abastecimento SET data = ?, combustivel = ?, valorLitro = ?, quantLitro = ?, vtotal = ?, kmAbastecimento = ?, vcl_idVeiculo = ? where idAbastecimento = ?", (data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo, idAbastecimento))
+        conn.commit()
+        print("Registro atualizado com sucesso")
+    except Exception as erro:
+        print("Erro: ",erro)
+
+
 

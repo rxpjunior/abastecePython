@@ -12,28 +12,32 @@ def excluiBd():
 
 # Criando BD 
 def criaTabelasBD():
-    conn = sqlite3.connect("abastece.db")
-    cursor = conn.cursor()
-    
-    conn.execute("""
-        CREATE TABLE veiculo (
-            idVeiculo INTEGER PRIMARY KEY AUTOINCREMENT,
-            placa     CHAR    NOT NULL,
-            modelo            NOT NULL
-        )
-    """)
+    try:
+            
+        conn = sqlite3.connect("abastece.db")
+        cursor = conn.cursor()
+        
+        conn.execute("""
+            CREATE TABLE veiculo (
+                idVeiculo INTEGER PRIMARY KEY AUTOINCREMENT,
+                placa     CHAR    NOT NULL,
+                modelo            NOT NULL
+            )
+        """)
 
-    
-    conn.execute("""
-        CREATE TABLE abastecimento (
-            idAbastecimento INTEGER PRIMARY KEY AUTOINCREMENT,
-            data            DATE,
-            combustivel     CHAR,
-            valorLitro      DOUBLE,
-            quantLitro      DOUBLE,
-            vTotal          DOUBLE,
-            kmAbastecimento INT,
-            vcl_idVeiculo   INT     REFERENCES veiculo (idVeiculo) 
-                                    NOT NULL
-        )
-    """)
+        
+        conn.execute("""
+            CREATE TABLE abastecimento (
+                idAbastecimento INTEGER PRIMARY KEY AUTOINCREMENT,
+                data            DATE,
+                combustivel     CHAR,
+                valorLitro      DOUBLE,
+                quantLitro      DOUBLE,
+                vTotal          DOUBLE,
+                kmAbastecimento INT,
+                vcl_idVeiculo   INT     REFERENCES veiculo (idVeiculo) 
+                                        NOT NULL
+            )
+        """)
+    except Exception as erro:
+        print("Erro: ",erro)
