@@ -6,7 +6,7 @@ import sqlite3
 def insereVeiculo(placa, modelo):
     try:
         conn = sqlite3.connect("abastece.db")
-        conn.execute("insert into Veiculo (placa, modelo) values (?, ?)", (placa, modelo ))
+        conn.execute("insert into Veiculo (placa, modelo) values (?, ?)", (placa.upper(), modelo.upper() ))
         conn.commit()
     except Exception as erro:
         print("Erro: ",erro)
@@ -14,7 +14,7 @@ def insereVeiculo(placa, modelo):
 def alteraVeiculo(id, placa, modelo):
     try:
         conn = sqlite3.connect("abastece.db")
-        conn.execute("update Veiculo SET placa = ?, modelo = ? where idVeiculo = ?", (placa, modelo, id))
+        conn.execute("update Veiculo SET placa = ?, modelo = ? where idVeiculo = ?", (placa.upper(), modelo.upper(), id))
         conn.commit()
         print("Registro atualizado com sucesso")
     except Exception as erro:
@@ -73,7 +73,7 @@ def excluiVeiculo(id):
 def insereAbastecimento(data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo):
     try:
         conn = sqlite3.connect("abastece.db")
-        conn.execute("insert into Abastecimento (data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo) values (?, ?, ?, ?, ?, ?, ?)", (data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo ))
+        conn.execute("insert into Abastecimento (data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo) values (?, ?, ?, ?, ?, ?, ?)", (data, combustivel.upper(), valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo ))
         conn.commit()
         print("Registro inserido com sucesso")
     except Exception as erro:
@@ -82,7 +82,7 @@ def insereAbastecimento(data, combustivel, valorLitro, quantLitro, vtotal, kmAba
 def alteraAbastecimento(data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo, idAbastecimento):
     try:
         conn = sqlite3.connect("abastece.db")
-        conn.execute("update Abastecimento SET data = ?, combustivel = ?, valorLitro = ?, quantLitro = ?, vtotal = ?, kmAbastecimento = ?, vcl_idVeiculo = ? where idAbastecimento = ?", (data, combustivel, valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo, idAbastecimento))
+        conn.execute("update Abastecimento SET data = ?, combustivel = ?, valorLitro = ?, quantLitro = ?, vtotal = ?, kmAbastecimento = ?, vcl_idVeiculo = ? where idAbastecimento = ?", (data, combustivel.upper(), valorLitro, quantLitro, vtotal, kmAbastecimento, vcl_idVeiculo, idAbastecimento))
         conn.commit()
         print("Registro atualizado com sucesso")
     except Exception as erro:
@@ -116,8 +116,20 @@ def pesquisaTodosAbastecimentosEntreDatas(d1, d2):
     except Exception as erro:
         print("Erro: ",erro)
 
-def pesquisaTodosAbastecimentosPorVeiculoEData():
-    ...
+def pesquisaTodosAbastecimentosPorVeiculoEData(placa, d1, d2):
+    try:
+        listaAbastecimento = []
+        veiculo = pesquisaVeiculoPlaca(placa)
+        id = veiculo[0][0]
+        conn = sqlite3.connect("abastece.db")
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Abastecimento where vcl_idVeiculo = ? and data BETWEEN ? and ?",(id, d1, d2,))
+        rows = cur.fetchall()
+        for row in rows:
+            listaAbastecimento.append(row)
+        return listaAbastecimento
+    except Exception as erro:
+        print("Erro: ",erro)
 
 def excluiAbastecimento(id):
     try:

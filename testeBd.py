@@ -48,4 +48,7 @@ for x in operacoesBd.pesquisaTodosAbastecimentosEntreDatas("2021-08-01","2021-12
 
 operacoesBd.excluiAbastecimento(4)
 
+print("Abastecimentos do Veículo de placa CCC-2222 e entre as datas 01/01/2021 e 01/02/2022")
+for x in operacoesBd.pesquisaTodosAbastecimentosPorVeiculoEData("CCC-2222","2021-01-01","2022-02-01"):
+    print(x)
 
