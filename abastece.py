@@ -105,8 +105,92 @@ def menuAbastecimento():
             print("\n\n")
             print("OPÇÃO INVÁLIDA\n\n")
             os.system("pause")
+        
+        # INSERINDO UM ABASTECIMENTO
         if op == '1':
-            ...
+             os.system('cls') or None
+             aux = ''
+             placa = ''
+             data = ''
+             combustivel = ''
+             valorLitro = ''
+             quantLitro = ''
+             vTotal = ''
+             kmAbastecimento = ''
+             veiculo = ''
+             vclidVeiculo = ''
+             while(aux != '0'):
+                 aux = input("ENTRE COM A PLACA DO VEÍCULO OU 0 PARA SAIR: ")
+                 if aux == 0:
+                     continue
+                 else:
+                     veiculo = opbd.pesquisaVeiculoPlaca(aux)
+                     if len(veiculo) == 0:
+                         aux = input("\n\PLACA INVÁLIDA. TENTE NOVAMENTE!\n")
+                     else:
+                         vclidVeiculo = veiculo[0][0]
+                     break
+             while(aux != '0'):
+                 print("ENTRE COM 1 PARA GASOLINA")
+                 print("ENTRE COM 2 PARA ALCOOL")
+                 print("ENTRE COM 3 PARA DIESEL")
+                 print("ENTRE COM 4 GAS NATURAL")
+                 print("ENTRE COM 0 PARA SAIR")
+                 aux = input("ENTRE COM UMA DAS OPÇÕES ACIMA: ")
+                 if aux == '0':
+                     continue
+                 else:
+                     if aux == '1':
+                         combustivel = "GASOLINA"
+                         break
+                     elif aux == '2':
+                         combustivel = "ALCOOL"
+                         break
+                     elif aux == '3':
+                         combustivel = "DIESEL"
+                         break
+                     elif aux == '4':
+                         combustivel = "GÁS NATURAL"
+                         break
+             while(aux != '0'):
+                 aux = input("ENTRE COM A DATA DO ABASTECIMENTO (EX: 01-10-2021) OU 0 PARA SAIR: ")
+                 if aux == 0:
+                     continue
+                 else:
+                     data = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
+                     break
+             while(aux != '0'):
+                 aux = input("ENTRE COM O VALOR DO LITRO DE COMBUSTÍVEL (EX: 4.54) OU 0 PARA SAIR: ")
+                 if aux == 0:
+                     continue
+                 else:
+                     valorLitro = float(aux)
+                     break
+             while(aux != '0'):
+                 aux = input("ENTRE COM A QUANTIDADE DE LITROS DE COMBUSTÍVEL OU 0 PARA SAIR: ")
+                 if aux == 0:
+                     continue
+                 else:
+                     quantLitro = float(aux)
+                     break
+             while(aux != '0'):
+                 aux = input("ENTRE COM O VALOR TOTAL DO ABASTECIMENTO OU 0 PARA SAIR: ")
+                 if aux == 0:
+                     continue
+                 else:
+                     vTotal = float(aux)
+                     break
+             while(aux != '0'):
+                 aux = input("ENTRE COM A KM DO VEÍCULO OU 0 PARA SAIR: ")
+                 if aux == 0:
+                     continue
+                 else:
+                     kmAbastecimento = int(aux)
+                     break
+            
+             if aux != '0':
+                 print(opbd.insereAbastecimento(data, combustivel, valorLitro, quantLitro, vTotal, kmAbastecimento, vclidVeiculo))
+                 os.system('pause')
         elif op == '2':
             ...
         elif op == '3':
