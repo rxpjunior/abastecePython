@@ -8,8 +8,10 @@ def insereVeiculo(placa, modelo):
         conn = sqlite3.connect("abastece.db")
         conn.execute("insert into Veiculo (placa, modelo) values (?, ?)", (placa.upper(), modelo.upper() ))
         conn.commit()
+        return "REGISTRO INSERIDO COM SUCESSO"
     except Exception as erro:
         print("Erro: ",erro)
+        return "ERRO AO INSERIR O REGISTRO"
 
 def alteraVeiculo(id, placa, modelo):
     try:
@@ -51,7 +53,7 @@ def pesquisaVeiculoPlaca(placa):
         listaVeiculo = []
         conn = sqlite3.connect("abastece.db")
         cur = conn.cursor()
-        cur.execute("SELECT * FROM Veiculo where placa = ?",(placa,))
+        cur.execute("SELECT * FROM Veiculo where placa = ?",(placa.upper(),))
         rows = cur.fetchall()
         for row in rows:
             listaVeiculo.append(row)
@@ -91,7 +93,7 @@ def alteraAbastecimento(data, combustivel, valorLitro, quantLitro, vtotal, kmAba
 def pesquisaTodosAbastecimentosPorVeiculo(placa):
     try:
         listaAbastecimento = []
-        veiculo = pesquisaVeiculoPlaca(placa)
+        veiculo = pesquisaVeiculoPlaca(placa.upper())
         id = veiculo[0][0]
         conn = sqlite3.connect("abastece.db")
         cur = conn.cursor()
@@ -119,7 +121,7 @@ def pesquisaTodosAbastecimentosEntreDatas(d1, d2):
 def pesquisaTodosAbastecimentosPorVeiculoEData(placa, d1, d2):
     try:
         listaAbastecimento = []
-        veiculo = pesquisaVeiculoPlaca(placa)
+        veiculo = pesquisaVeiculoPlaca(placa.upper())
         id = veiculo[0][0]
         conn = sqlite3.connect("abastece.db")
         cur = conn.cursor()
