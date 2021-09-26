@@ -2,8 +2,7 @@ import os
 import operacoesBd as opbd
 import adminBd
 
-adminBd.excluiBd()
-adminBd.criaTabelasBD()
+
 
 # FUNÇÃO PARA ENCERRAMENTO PELO USUÁRIO 
 def encerraPrograma():
@@ -243,7 +242,7 @@ def menuAbastecimento():
             abastecimento = opbd.pesquisaTodosAbastecimentosEntreDatas(dInicial, dFinal)
             if len(abastecimento) == 0:
                 print("NENHUM ABASTECIMENTO ENCONTRADO\n")
-                os.system('pause')
+                
             else:
                 cont = 0
                 for x in abastecimento:
@@ -261,7 +260,35 @@ def menuAbastecimento():
             os.system('pause')
 
         elif op == '4':
-            ...
+            os.system('cls') or None
+            print("LISTANDO TODOS OS ABASTECIMENTOS DE UM VEÍCULO POR UM PERÍODO\n")
+            aux = input("ENTRE COM A DATA INICIAL (EX: 01-10-2021): ")
+            dInicial = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
+            aux = input("ENTRE COM A DATA FINAL (EX: 01-10-2021): ")
+            dFinal = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
+            placa = input("ENTRE COM A PLACA DO VEÍCULO OU 0 PARA SAIR: ")
+            veiculo = opbd.pesquisaVeiculoPlaca(placa)
+            abastecimento = opbd.pesquisaTodosAbastecimentosPorVeiculoEData(placa,dInicial,dFinal)
+            if aux == '0':
+                op = '0'
+            elif len(abastecimento) == 0 or len(veiculo) == 0:
+                print("NENHUM ABASTECIMENTO ENCONTRADO\n")
+                
+            else:
+                cont = 0
+                for x in abastecimento:
+                    veiculo = opbd.pesquisaVeiculoId(abastecimento[cont][7])
+                    print("ABASTECIMENTO ID:",abastecimento[cont][0])
+                    print("VEÍCULO: ",veiculo)
+                    print("DATA:",abastecimento[cont][1])
+                    print("COMBUSTÍVEL:",abastecimento[cont][2])
+                    print("VALOR DO LITRO: R$ ",abastecimento[cont][3])
+                    print("QUANTIDADE ABASTECIDA: ",abastecimento[cont][4])
+                    print("VALOR TOTAL DO ABASTECIMENTO: R$ ",abastecimento[cont][5])
+                    print("KM DO VEÍCULO: ",abastecimento[cont][6])
+                    print("\n")
+                    cont += 1
+            os.system('pause')
 
 # MENU PRINCIPAL
 op = ''
