@@ -1,5 +1,9 @@
 import os 
 import operacoesBd as opbd
+import adminBd
+
+adminBd.excluiBd()
+adminBd.criaTabelasBD()
 
 # FUNÇÃO PARA ENCERRAMENTO PELO USUÁRIO 
 def encerraPrograma():
@@ -205,6 +209,7 @@ def menuAbastecimento():
                      if aux2 == '1':
                          break
                      else:
+                         os.system('cls') or None
                          aux = input("ENTRE COM O VALOR DO ABASTECIMENTO OU 0 PARA SAIR: ")
                          break
                  if aux == '0':
@@ -227,8 +232,34 @@ def menuAbastecimento():
                  
         elif op == '2':
             ...
+        
         elif op == '3':
-            ...
+            os.system('cls') or None
+            print("LISTANDO TODOS OS ABASTECIMENTOS POR UM PERÍODO\n")
+            aux = input("ENTRE COM A DATA INICIAL (EX: 01-10-2021): ")
+            dInicial = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
+            aux = input("ENTRE COM A DATA FINAL (EX: 01-10-2021): ")
+            dFinal = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
+            abastecimento = opbd.pesquisaTodosAbastecimentosEntreDatas(dInicial, dFinal)
+            if len(abastecimento) == 0:
+                print("NENHUM ABASTECIMENTO ENCONTRADO\n")
+                os.system('pause')
+            else:
+                cont = 0
+                for x in abastecimento:
+                    veiculo = opbd.pesquisaVeiculoId(abastecimento[cont][7])
+                    print("ABASTECIMENTO ID:",abastecimento[cont][0])
+                    print("VEÍCULO: ",veiculo)
+                    print("DATA:",abastecimento[cont][1])
+                    print("COMBUSTÍVEL:",abastecimento[cont][2])
+                    print("VALOR DO LITRO: R$ ",abastecimento[cont][3])
+                    print("QUANTIDADE ABASTECIDA: ",abastecimento[cont][4])
+                    print("VALOR TOTAL DO ABASTECIMENTO: R$ ",abastecimento[cont][5])
+                    print("KM DO VEÍCULO: ",abastecimento[cont][6])
+                    print("\n")
+                    cont += 1
+            os.system('pause')
+
         elif op == '4':
             ...
 
