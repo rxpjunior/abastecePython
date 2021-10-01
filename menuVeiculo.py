@@ -1,6 +1,7 @@
 # MENU DO VEÍCULO
 import os
 import operacoesBd as opbd
+import validacoes as valida
 
 def menuVeiculo():
     op = ''
@@ -30,6 +31,9 @@ def menuVeiculo():
                 aux = input("ENTRE COM A PLACA DO VEÍCULO OU 0 PARA SAIR: ")
                 if aux == '0':
                     continue
+                elif not valida.validaPlaca(aux):
+                    print("PLACA INVÁLIDA! TENTE NOVAMENTE")
+                    os.system("pause")
                 else:
                     placa = aux
                     break
