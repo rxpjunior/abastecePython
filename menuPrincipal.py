@@ -12,7 +12,7 @@ while(op !='0'):
     print("DIGITE 2 PARA MENU DE ABASTECIMENTOS")
     print("DIGITE 0 PARA SAIR")
 
-    op = input("Entre com uma das opções: ")
+    op = input("ENTRE COM UMA DAS OPÇÕES: ")
     if op != '1' and op != '2' and op != '0':
         print("\n\n")
         print("OPÇÃO INVÁLIDA\n\n")
@@ -25,5 +25,5 @@ while(op !='0'):
         
         abastecimento.menuAbastecimento()
 
-print("Programa encerrado")
+print("PROGRAMA ENCERRADO PELO USUÁRIO")
 os.system("pause")

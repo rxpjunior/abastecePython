@@ -1,6 +1,7 @@
 # MENU DE ABASTECIMENTO
 import os
 import operacoesBd as opbd
+import validacoes as valida
 
 def menuAbastecimento():
     op = ''
@@ -24,7 +25,7 @@ def menuAbastecimento():
         print("DIGITE 5 PARA APAGAR UM ABASTECIMENTO")
         print("DIGITE 0 PARA SAIR DO MENU")
        
-        op = input("Entre com uma das opções: ")
+        op = input("ENTRE COM UMA DAS OPÇÕES: ")
         if op != '1' and op != '2' and op != '3' and op != '4' and op != '5' and op != '0':
             print("\n\n")
             print("OPÇÃO INVÁLIDA\n\n")
@@ -77,6 +78,10 @@ def menuAbastecimento():
                  aux = input("ENTRE COM A DATA DO ABASTECIMENTO (EX: 01-10-2021) OU 0 PARA SAIR: ")
                  if aux == '0':
                      continue
+                 elif not valida.validaData(aux):
+                     print("DATA INVÁLIDA. SIGA O SEGUINTE EXEMPLO: 11-09-2021")
+                     os.system("pause")  
+                     os.system('cls') or None   
                  else:
                      data = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
                      break
@@ -134,9 +139,23 @@ def menuAbastecimento():
         elif op == '3':
             os.system('cls') or None
             print("LISTANDO TODOS OS ABASTECIMENTOS POR UM PERÍODO\n")
-            aux = input("ENTRE COM A DATA INICIAL (EX: 01-10-2021): ")
+            while True:
+                aux = input("ENTRE COM A DATA INICIAL (EX: 01-10-2021): ")
+                if valida.validaData(aux):
+                    break
+                else:
+                    print("DATA INVÁLIDA. SIGA O SEGUINTE EXEMPLO: 11-09-2021")
+                    os.system('pause')
+                    os.system('cls') or None
             dInicial = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
-            aux = input("ENTRE COM A DATA FINAL (EX: 01-10-2021): ")
+            while True:
+                aux = input("ENTRE COM A DATA FINAL (EX: 01-10-2021): ")
+                if valida.validaData(aux):
+                    break
+                else:
+                    print("DATA INVÁLIDA. SIGA O SEGUINTE EXEMPLO: 11-09-2021")
+                    os.system('pause')
+                    os.system('cls') or None                    
             dFinal = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
             abastecimento = opbd.pesquisaTodosAbastecimentosEntreDatas(dInicial, dFinal)
             if len(abastecimento) == 0:
@@ -161,9 +180,23 @@ def menuAbastecimento():
         elif op == '4':
             os.system('cls') or None
             print("LISTANDO TODOS OS ABASTECIMENTOS DE UM VEÍCULO POR UM PERÍODO\n")
-            aux = input("ENTRE COM A DATA INICIAL (EX: 01-10-2021): ")
+            while True:
+                aux = input("ENTRE COM A DATA INICIAL (EX: 01-10-2021): ")
+                if valida.validaData(aux):
+                    break
+                else:
+                    print("DATA INVÁLIDA. SIGA O SEGUINTE EXEMPLO: 11-09-2021")
+                    os.system('pause')
+                    os.system('cls') or None
             dInicial = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
-            aux = input("ENTRE COM A DATA FINAL (EX: 01-10-2021): ")
+            while True:
+                aux = input("ENTRE COM A DATA FINAL (EX: 01-10-2021): ")
+                if valida.validaData(aux):
+                    break
+                else:
+                    print("DATA INVÁLIDA. SIGA O SEGUINTE EXEMPLO: 11-09-2021")
+                    os.system('pause')
+                    os.system('cls') or None    
             dFinal = aux[6:]+'-'+aux[3:5]+'-'+aux[0:2]
             placa = input("ENTRE COM A PLACA DO VEÍCULO OU 0 PARA SAIR: ")
             veiculo = opbd.pesquisaVeiculoPlaca(placa)

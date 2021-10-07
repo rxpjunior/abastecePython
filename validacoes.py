@@ -12,6 +12,17 @@ def validaPlaca(placa):
         p4Placa = True if (aux[5].isdigit() and aux[6].isdigit()) else False
         return (p1Placa and p2Placa and p3Placa and p4Placa)
 
+def validaData(d):
+    if len(d) != 10:
+        return False
+    elif (d[2] !=  '-' or d[5] != '-'):
+        return False
+    else:
+        p1Data = True if(d[0].isdigit() and d[1].isdigit() and d[3].isdigit() and d[4].isdigit() and d[6].isdigit() and d[7].isdigit() and d[8].isdigit() and d[9].isdigit()) else False
+        return p1Data
+
+
+
 def converteDataInternacional(data):
     ...
 
